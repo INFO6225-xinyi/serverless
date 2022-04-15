@@ -1,0 +1,46 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+env:
+  ARTIFACT_NAME: csye6225-lamda-${{ github.sha }}.zip
+  AWS_REGION: us-east-1
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  Lambda:
+    runs-on: ubuntu-latest
+
+
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build Deployment Artifact
+        run: |
+          zip -r ${{ env.ARTIFACT_NAME }} index.js 
+
+      - name: Configuring AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY_ID }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Copy Artifact to S3
+        run: |
+          aws s3 cp ${{ env.ARTIFACT_NAME }} s3://serverless.demo.xinyi.me/${{ env.ARTIFACT_NAME }}
+      - name: Call to Lambda for Updating Function
+        run: |
+          aws lambda update-function-code --function-name verification --region us-east-1 --zip-file fileb://${{ env.ARTIFACT_NAME }}
