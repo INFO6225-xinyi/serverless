@@ -46,11 +46,11 @@ exports.handler = function (event, context, callback) {
                             /* required */
                             Html: {
                                 Charset: "UTF-8",
-                                Data: "Hello, thank you for signing up. <br>Please use the following link to verify account:<br> " + "http://demo.zhuomintang0079.me/v1/user/verifyUserEmail?email=" + message[0].replace(/\+/, "%2B") + "&token=" + message[1]
+                                Data: "Hello, thank you for signing up. <br>Please use the following link to verify account:<br> " + "http://prod.xinyapp.me/v1/user/verifyUserEmail?email=" + message[0].replace(/\+/, "%2B") + "&token=" + message[1]
                             },
                             Text: {
                                 Charset: "UTF-8",
-                                Data: "Hello, thank you for signing up. <br>Please use the following link to verify account:<br> " + "http://demo.zhuomintang0079.me/v1/user/verifyUserEmail?email=" + message[0].replace(/\+/, "%2B") + "&token=" + message[1]
+                                Data: "Hello, thank you for signing up. <br>Please use the following link to verify account:<br> " + "http://prod.xinyapp.me/v1/user/verifyUserEmail?email=" + message[0].replace(/\+/, "%2B") + "&token=" + message[1]
                             }
                         },
                         Subject: {
