@@ -58,7 +58,7 @@ exports.handler = function (event, context, callback) {
                             Data: 'Webapp verification email'
                         }
                     },
-                    Source: "no-reply@demo.zhuomintang0079.me" /* required */
+                    Source: "no-reply@prod.xinyapp.me" /* required */
                 };
 
 
